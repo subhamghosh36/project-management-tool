@@ -37,7 +37,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     });
 
     res.status(201).json({ user: { id: user.id, email: user.email, name: user.name } });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       res.status(400).json({ message: 'Invalid data', errors: error.issues });
       return;
@@ -74,7 +74,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     });
 
     res.status(200).json({ user: { id: user.id, email: user.email, name: user.name } });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error); res.status(500).json({ message: error.message || 'Internal server error' });
   }
 };
@@ -93,8 +93,8 @@ export const getMe = async (req: Request, res: Response): Promise<void> => {
       return;
     }
     res.status(200).json({ user: { id: user.id, email: user.email, name: user.name } });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error); res.status(500).json({ message: error.message || 'Internal server error' });
   }
 };
-export const getAllUsers = async (req: Request, res: Response): Promise<void> => { try { const users = await prisma.user.findMany({ select: { id: true, name: true, email: true } }); res.status(200).json(users); } catch (error) { console.error(error); res.status(500).json({ message: error.message || 'Internal server error' }); } };
+export const getAllUsers = async (req: Request, res: Response): Promise<void> => { try { const users = await prisma.user.findMany({ select: { id: true, name: true, email: true } }); res.status(200).json(users); } catch (error: any) { console.error(error); res.status(500).json({ message: error.message || 'Internal server error' }); } };
