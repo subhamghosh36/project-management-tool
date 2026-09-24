@@ -25,7 +25,7 @@ export default function LoginPage() {
       setUser(res.data.user);
       router.push('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Something went wrong');
+      setError(err.response?.data?.message || err.message || 'Something went wrong');
     } finally {
       setLoading(false);
     }

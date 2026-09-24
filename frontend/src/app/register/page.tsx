@@ -26,7 +26,7 @@ export default function RegisterPage() {
       setUser(res.data.user);
       router.push('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Something went wrong. Password must be 6+ characters.');
+      setError(err.response?.data?.message || err.message || 'Something went wrong. Password must be 6+ characters.');
     } finally {
       setLoading(false);
     }
