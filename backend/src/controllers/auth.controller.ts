@@ -42,7 +42,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       res.status(400).json({ message: 'Invalid data', errors: error.issues });
       return;
     }
-    res.status(500).json({ message: 'Internal server error' });
+    console.error(error); res.status(500).json({ message: error.message || 'Internal server error' });
   }
 };
 
@@ -75,7 +75,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
     res.status(200).json({ user: { id: user.id, email: user.email, name: user.name } });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    console.error(error); res.status(500).json({ message: error.message || 'Internal server error' });
   }
 };
 
@@ -94,7 +94,7 @@ export const getMe = async (req: Request, res: Response): Promise<void> => {
     }
     res.status(200).json({ user: { id: user.id, email: user.email, name: user.name } });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    console.error(error); res.status(500).json({ message: error.message || 'Internal server error' });
   }
 };
-export const getAllUsers = async (req: Request, res: Response): Promise<void> => { try { const users = await prisma.user.findMany({ select: { id: true, name: true, email: true } }); res.status(200).json(users); } catch (error) { res.status(500).json({ message: 'Internal server error' }); } };
+export const getAllUsers = async (req: Request, res: Response): Promise<void> => { try { const users = await prisma.user.findMany({ select: { id: true, name: true, email: true } }); res.status(200).json(users); } catch (error) { console.error(error); res.status(500).json({ message: error.message || 'Internal server error' }); } };
